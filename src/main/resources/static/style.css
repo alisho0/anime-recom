@@ -27,3 +27,9 @@
 .w-md-50 {
     text-align: center;
 }
+
+.tabla-fila p {
+  margin: 0 auto;
+  align-items: center;
+  text-align: center;
+}

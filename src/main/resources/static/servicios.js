@@ -22,8 +22,38 @@
         })
         document.getElementById("fav").addEventListener("click", () => {
           const listaFavoritos = document.getElementById("table-body");
-          const fila = document.createElement("tr");
-          const dato = document.createElement("td");
+          // Texto del anime actual
           let favorito = document.getElementById("titulo-anime").innerText;
-          console.log(favorito);
+          let existe = false;
+          
+          for (let fila of listaFavoritos.rows) {
+            console.log(fila.cells[1].innerHTML);
+            if (fila.cells[1] && fila.cells[1].innerHTML == favorito) {
+              existe = true;
+              break;
+            }
+          }
+          if (existe) {
+            alert("Ya existe")
+            return;
+          }
+          // Creo los elementos de la tabla, fila y fila
+          const fila = document.createElement("tr");
+          fila.className = "tabla-fila";
+
+          // Creación de los parrafos e img
+          const celdaTitulo = document.createElement("td");
+          celdaTitulo.textContent = favorito;
+
+          const celdaImg = document.createElement("td");
+          const imgFila = document.createElement("img");
+          imgFila.src = "star-fill.svg";
+          imgFila.alt = "Portada anime";
+          imgFila.style.width = "1.3rem";
+          celdaImg.appendChild(imgFila);
+          
+          fila.appendChild(celdaImg);
+          fila.appendChild(celdaTitulo);
+
+          listaFavoritos.appendChild(fila);
         });

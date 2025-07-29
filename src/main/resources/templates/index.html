@@ -47,7 +47,7 @@
 
       <section class="row g-4">
         <div class="col-12 col-md-6">
-          <form th:action="@{/buscar}" method="GET">
+          <form id="formBuscarAnime" th:action="@{/buscar}" method="GET">
             <div class="mb-1 position-relative">
               <label class="form-label" for="buscar">Buscar anime</label>
               <div class="d-flex flex-column flex-md-row gap-2">
@@ -64,7 +64,7 @@
               <ul id="sugerencias" class="list-group position-absolute w-100" style="z-index: 10;"></ul>
             </div>
           </form>
-          <table class="table table-hover">
+          <table id="tabla_id" class="table table-hover">
             <thead>
               <th>Imagen</th>
               <th>Titulo</th>
@@ -72,6 +72,9 @@
             <tbody id="table-body">
             </tbody>
           </table>
+          <div class="d-flex justify-content-center my-4">
+            <button id="generar-reco" class="btn btn-success btn-lg px-4">Generar recomendaciones</button>
+          </div>
         </div>
 
         <div class="col-12 col-md-6 mt-4 mt-md-0 mb-3" th:if="${respuesta != null}">

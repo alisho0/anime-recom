@@ -1,0 +1,29 @@
+#sugerencias {
+  max-height: 250px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #dee2e6;
+  border-top: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+  margin-top: -1px;
+}
+#sugerencias li {
+  cursor: pointer;
+  padding: 8px 16px;
+  border-bottom: 1px solid #f1f1f1;
+}
+#sugerencias li:last-child {
+  border-bottom: none;
+}
+#sugerencias li:hover {
+  background: #f1f3f5;
+}
+.sugerencia-hover:hover, .sugerencia-hover.active {
+  background: #e0e7ff;
+  color: #1d1d1d;
+  cursor: pointer;
+}
+
+.w-md-50 {
+    text-align: center;
+}

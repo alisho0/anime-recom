@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html
+  xmlns="https://www.w3.org/1999/xhtml/"
+  xmlns:th="https://www.thymeleaf.org/"
+>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Anime FavReco</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="style.css">
+  </head>
+  <body>
+    <header>
+      <nav class="navbar bg-body-tertiary">
+        <div class="container-fluid">
+          <a class="navbar-brand">AniReco</a>
+          <div class="d-flex mx-2">
+            <ul class="navbar-nav flex-row gap-4">
+              <li class="nav-item">
+                <a href="#" class="nav-link">Inicio</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#">Recomendaciones</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <div class="container">
+      <h2 class="text-center my-5">¡Bienvenido a <b>🌸AniReco🌸</b>!</h2>
+
+      <section class="mb-5">
+        <hr>
+        <h4 class="text-center">¿Qué tengo que hacer?</h4>
+        <p class="w-100 w-md-50 mx-auto text-center">
+          Busca, selecciona tus animes favoritos, luego da clic en
+          recomendaciones y descubre nuevas series que podrían interesarte
+        </p>
+        <hr>
+      </section>
+
+      <section class="row g-4">
+        <div class="col-12 col-md-6">
+          <form th:action="@{/buscar}" method="GET">
+            <div class="mb-1 position-relative">
+              <label class="form-label" for="buscar">Buscar anime</label>
+              <div class="d-flex flex-column flex-md-row gap-2">
+                <input
+                  type="text"
+                  id="busquedaAnime"
+                  class="form-control"
+                  name="busqueda"
+                  placeholder="Escribe tu anime"
+                  autocomplete="off"
+                />
+                <input type="submit" value="🔍" class="btn btn-primary mt-2 mt-md-0" />
+              </div>
+              <ul id="sugerencias" class="list-group position-absolute w-100" style="z-index: 10;"></ul>
+            </div>
+          </form>
+          <table class="table table-hover">
+            <thead>
+              <th>Imagen</th>
+              <th>Titulo</th>
+            </thead>
+            <tbody id="table-body">
+            </tbody>
+          </table>
+        </div>
+
+        <div class="col-12 col-md-6 mt-4 mt-md-0 mb-3" th:if="${respuesta != null}">
+          <div class="card shadow-sm mx-auto" style="max-width: 22rem;">
+            <!-- Imagen del anime (puedes cambiar la URL por la real si la tienes en la respuesta) -->
+            <img
+              th:src="${respuesta.data.media.coverImage.large}"
+              class="card-img-top"
+              alt="Portada anime"
+              style="object-fit: cover"
+            />
+            <div class="card-body">
+              <div class="d-flex justify-content-between">
+                <h5
+                id="titulo-anime"
+                class="card-title"
+                th:text="${respuesta.data.media.title.romaji}"
+                ></h5>
+                <button id="fav" class="btn btn-outline-warning d-flex"><img src="star-fill.svg"></button>
+              </div>
+              <ul class="list-group list-group-flush mb-2">
+                <li class="list-group-item">
+                  <b>Capítulos:</b>
+                  <span th:text="${respuesta.data.media.episodes}"></span>
+                </li>
+                <li class="list-group-item">
+                  <b>Temporada:</b>
+                  <span th:text="${respuesta.data.media.season}"></span>
+                </li>
+                <li class="list-group-item">
+                  <b>Año:</b>
+                  <span th:text="${respuesta.data.media.seasonYear}"></span>
+                </li>
+                <li class="list-group-item">
+                  <b>Géneros:</b>
+                  <span
+                    th:each="g : ${respuesta.data.media.genres}"
+                    th:text="${g}"
+                    class="badge bg-secondary me-1"
+                  ></span>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+    <footer></footer>
+    <script src="servicios.js"></script>
+  </body>
+</html>

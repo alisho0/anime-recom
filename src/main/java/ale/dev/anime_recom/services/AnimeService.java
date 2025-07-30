@@ -1,5 +1,6 @@
 package ale.dev.anime_recom.services;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
+import ale.dev.anime_recom.models.AnimeRecoDTO;
 import ale.dev.anime_recom.models.AnimeRespuestaDTO;
 import ale.dev.anime_recom.models.AnimeSugerenciaDTO;
 
@@ -74,5 +76,52 @@ public class AnimeService {
             .retrieve()
             .bodyToMono(AnimeSugerenciaDTO.class)
             .block();
+    }
+
+    public List<AnimeRecoDTO> recomendarAnimes(List<String> favoritos) throws Exception {
+        try {
+            String query = """
+                    query($search: String) {
+                        Media(search: $search, type: ANIME) {
+                            recommendations(perPage: 3) {
+                                nodes {
+                                    mediaRecommendation {
+                                        id
+                                        title {
+                                            romaji
+                                        }
+                                        episodes
+                                        genres
+                                        season
+                                        seasonYear
+                                        averageScore
+                                        coverImage {
+                                            large
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    """;
+            List<AnimeRecoDTO> recomendaciones = new ArrayList<>();
+            for (String anime : favoritos) {
+                Map<String, Object> variables = Map.of("search", anime);
+                Map<String, Object> request = Map.of(
+                    "query", query,
+                    "variables", variables
+                );
+                
+                AnimeRecoDTO recos = webClient.post()
+                    .bodyValue(request)
+                    .retrieve()
+                    .bodyToMono(AnimeRecoDTO.class)
+                    .block();
+                recomendaciones.add(recos);
+            }
+            return recomendaciones;
+        } catch (Exception e) {
+            throw new Exception("Error en el service");
+        }
     }
 }

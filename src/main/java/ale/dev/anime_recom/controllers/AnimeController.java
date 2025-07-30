@@ -6,7 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
+import ale.dev.anime_recom.models.AnimeRecoDTO;
 import ale.dev.anime_recom.models.AnimeRespuestaDTO;
 import ale.dev.anime_recom.models.AnimeSugerenciaDTO;
 import ale.dev.anime_recom.services.AnimeService;
@@ -38,4 +41,14 @@ public class AnimeController {
         return respuesta;
     }
     
+    @PostMapping("/generarRecomendaciones")
+    @ResponseBody
+    public List<AnimeRecoDTO> recomendaciones(@RequestBody List<String> favoritos) throws Exception {
+        try {
+            List<AnimeRecoDTO> recos = animeService.recomendarAnimes(favoritos);
+            return null;
+        } catch (Exception e) {
+            throw new Exception("Ocurrió algo mal en el conrolador de recomendaciones.");
+        }
+    }
 }

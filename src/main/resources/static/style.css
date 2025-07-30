@@ -33,3 +33,9 @@
   align-items: center;
   text-align: center;
 }
+
+.opciones-style {
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}

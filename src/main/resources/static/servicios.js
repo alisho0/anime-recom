@@ -48,6 +48,20 @@ document.getElementById("fav").addEventListener("click", () => {
 
   // Creación de los parrafos e img
   const celdaTitulo = document.createElement("td");
+  // Botones
+  const celdaOpciones = document.createElement("td");
+  const divOpciones = document.createElement("div");
+  const btn1 = document.createElement("button");
+  const btn2 = document.createElement("button");
+  btn1.textContent = "👁";
+  btn2.textContent = "✖";
+  btn1.classList.add("btn", "btn-primary");
+  btn2.classList.add("btn", "btn-primary");
+  divOpciones.appendChild(btn1);
+  divOpciones.appendChild(btn2);
+  divOpciones.classList.add("d-flex", "justify-content-center")
+  celdaOpciones.appendChild(divOpciones);
+
   celdaTitulo.textContent = favorito;
 
   const celdaImg = document.createElement("td");
@@ -59,7 +73,7 @@ document.getElementById("fav").addEventListener("click", () => {
 
   fila.appendChild(celdaImg);
   fila.appendChild(celdaTitulo);
-
+  fila.appendChild(celdaOpciones);
   listaFavoritos.appendChild(fila);
 
   // Guardar en localStorage
@@ -76,8 +90,22 @@ window.addEventListener("DOMContentLoaded", () => {
   let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
   favoritos.forEach(fav => {
     const fila = document.createElement("tr");
+  // Botones
+    const celdaOpciones = document.createElement("td");
+    const divOpciones = document.createElement("div");
+    const btn1 = document.createElement("button");
+    const btn2 = document.createElement("button");
+    btn1.textContent = "👁";
+    btn2.textContent = "✖";
+    btn1.classList.add("btn", "btn-primary");
+    btn2.classList.add("btn", "btn-primary");
+    divOpciones.appendChild(btn1);
+    divOpciones.appendChild(btn2);
+    divOpciones.classList.add("d-flex", "justify-content-center")
+    celdaOpciones.appendChild(divOpciones);
     fila.className = "tabla-fila";
     const celdaImg = document.createElement("td");
+    celdaImg.classList.add("text-center")
     const imgFila = document.createElement("img");
     imgFila.src = fav.img;
     imgFila.alt = "Portada anime";
@@ -87,6 +115,21 @@ window.addEventListener("DOMContentLoaded", () => {
     celdaTitulo.textContent = fav.titulo;
     fila.appendChild(celdaImg);
     fila.appendChild(celdaTitulo);
+    fila.appendChild(celdaOpciones);
     listaFavoritos.appendChild(fila);
   });
 });
+
+const crearElementos = () => {
+
+}
+
+document.getElementById("generar-reco").addEventListener("click", () => {
+  let arrayFavoritos = [];
+  console.log("hola")
+  const tablaFavoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+  tablaFavoritos.forEach(fav => {
+    arrayFavoritos.push(fav.titulo);
+  });
+  console.log(arrayFavoritos);
+})

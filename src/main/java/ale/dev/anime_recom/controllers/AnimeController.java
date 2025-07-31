@@ -46,7 +46,7 @@ public class AnimeController {
     public List<AnimeRecoDTO> recomendaciones(@RequestBody List<String> favoritos) throws Exception {
         try {
             List<AnimeRecoDTO> recos = animeService.recomendarAnimes(favoritos);
-            return null;
+            return recos;
         } catch (Exception e) {
             throw new Exception("Ocurrió algo mal en el conrolador de recomendaciones.");
         }

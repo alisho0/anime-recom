@@ -126,10 +126,51 @@ const crearElementos = () => {
 
 document.getElementById("generar-reco").addEventListener("click", () => {
   let arrayFavoritos = [];
-  console.log("hola")
   const tablaFavoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
   tablaFavoritos.forEach(fav => {
     arrayFavoritos.push(fav.titulo);
   });
-  console.log(arrayFavoritos);
+  
+  fetch("/generarRecomendaciones", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify(arrayFavoritos)
+  })
+    .then(response => response.json())
+    .then(data => {
+      let recomendaciones = [];
+      data.forEach(item => {
+        const nodes = item.data.Media.recommendations.nodes;
+        nodes.forEach(node => {
+          recomendaciones.push(node.mediaRecommendation);
+        });
+      });
+      // Mostrar recomendaciones en cards Bootstrap
+      let contenedor = document.getElementById("reco-container");
+      if (!contenedor) {
+        contenedor = document.createElement("div");
+        contenedor.id = "reco-container";
+        contenedor.className = "row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 my-4";
+        document.querySelector(".container").appendChild(contenedor);
+      }
+      contenedor.innerHTML = "";
+      recomendaciones.forEach(anime => {
+        const card = document.createElement("div");
+        card.className = "col";
+        card.innerHTML = `
+          <div class="card h-100 shadow-sm">
+            <img src="${anime.coverImage.large}" class="card-img-top" alt="${anime.title.romaji}" style="object-fit:cover; height: 250px;">
+            <div class="card-body">
+              <h5 class="card-title">${anime.title.romaji}</h5>
+              <p class="card-text mb-1"><b>Score:</b> ${anime.averageScore || '-'} | <b>Episodios:</b> ${anime.episodes || '-'}</p>
+              <p class="card-text mb-1"><b>Temporada:</b> ${anime.season || '-'} ${anime.seasonYear || ''}</p>
+              <div class="mb-1">
+                ${(anime.genres || []).map(g => `<span class='badge bg-secondary me-1'>${g}</span>`).join(' ')}
+              </div>
+            </div>
+          </div>
+        `;
+        contenedor.appendChild(card);
+      });
+    });
 })

@@ -37,13 +37,14 @@ public class AnimeRecoDTO {
         private List<String> genres;
         private String season;
         private Long seasonYear;
-        private Long avergareScore;
-        private CoverImage coverImage; 
+        private Long averageScore;
+        @JsonProperty("coverImage")
+        private CoverImage coverImg; 
     }
 
     @Data
     public static class CoverImage {
-        private String medium;
+        private String large;
     }
 
     @Data

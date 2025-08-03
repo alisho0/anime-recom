@@ -28,6 +28,7 @@ public class AnimeService {
                         },
                         season,
                         seasonYear,
+                        averageScore,
                         genres,
                         episodes,
                         coverImage {

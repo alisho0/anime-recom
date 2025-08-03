@@ -38,18 +38,18 @@
             Busca, selecciona tus animes favoritos, luego da clic en
             recomendaciones y descubre nuevas series que podrían interesarte
           </p>
-          <div class="d-flex justify-content-center gap-3">
-            <div class="card-body border rounded card-bg-gradient p-2">
+          <div class="d-flex row justify-content-center gap-3">
+            <div class="card-body col-12 col-md-3 border rounded card-bg-gradient p-2" style="margin: 0 auto;">
               <p class=" fs-3 m-0">🔍</p>
               <h5 class="card-title mb-1">Busca Animes</h5>
               <p class="card-text text-card">Explora una base de datos con información de tus animes favoritos</p>
             </div>
-            <div class="card-body border rounded card-bg-gradient p-2">
+            <div class="card-body col-12 col-md-3 border rounded card-bg-gradient p-2">
               <p class=" fs-3 m-0">⭐</p>
               <h5 class="card-title mb-1">Crea tu Lista</h5>
               <p class=" card-text text-card">Guarda tus animes favoritos para tener tu colección personal</p>
             </div>
-            <div class="card-body border rounded card-bg-gradient p-2">
+            <div class="card-body col-12 col-md-3 border rounded card-bg-gradient p-2 text-center">
               <p class=" fs-3 m-0">🎌</p>
               <h5 class="card-title mb-1">Recibe Recomendaciones</h5>
               <p class="card-text text-card">Recibe sugerencias basadas en tus gustos</p>
@@ -58,58 +58,50 @@
         </div>
       </section>
 
-      <section class="row g-4">
-        <div class="col-12 col-md-6">
+      <section class="row gap-3 d-flex flex-column align-items-center mb-4">
+        <div class="col-12" style="max-width: 40rem;">
           <form id="formBuscarAnime" th:action="@{/buscar}" method="GET">
             <div class="mb-1 position-relative">
               <label class="form-label" for="buscar">Buscar anime</label>
-              <div class="d-flex flex-column flex-md-row gap-2">
+              <div class="d-flex flex-column flex-md-row btn-group ">
                 <input
                   type="text"
                   id="busquedaAnime"
-                  class="form-control"
+                  class="form-control bg-dark text-white border-secondary"
                   name="busqueda"
                   placeholder="Escribe tu anime"
                   autocomplete="off"
                 />
                 <input type="submit" value="🔍" class="btn btn-primary mt-2 mt-md-0" />
               </div>
-              <ul id="sugerencias" class="list-group position-absolute w-100" style="z-index: 10;"></ul>
+              <ul id="sugerencias" class="list-group position-absolute bg-dark text-white border-secondary" style="z-index: 10;"></ul>
             </div>
           </form>
-          <table id="tabla_id" class="table table-hover table-striped">
-            <thead class=" text-center">
-              <th>Imagen</th>
-              <th>Titulo</th>
-              <th>Opciones</th>
-            </thead>
-            <tbody id="table-body">
-            </tbody>
-          </table>
-          <div class="d-flex justify-content-center my-4">
-            <button id="generar-reco" class="btn btn-success btn-lg px-4">Generar recomendaciones</button>
-          </div>
         </div>
 
         <div class="col-12 col-md-6 mt-4 mt-md-0 mb-3" th:if="${respuesta != null}">
-          <div class="card shadow-sm mx-auto" style="max-width: 22rem;">
-            <!-- Imagen del anime (puedes cambiar la URL por la real si la tienes en la respuesta) -->
+          <div class="card shadow-sm mx-auto text-bg-dark border border-secondary rounded" style="max-width: 22rem;">
             <img
               th:src="${respuesta.data.media.coverImage.large}"
               class="card-img-top"
               alt="Portada anime"
               style="object-fit: cover"
             />
-            <div class="card-body">
-              <div class="d-flex justify-content-between">
+            <div class="card-body ">
+              <div class="d-flex justify-content-between mb-2">
                 <h5
                 id="titulo-anime"
-                class="card-title"
+                class="card-title fw-bold m-0"
                 th:text="${respuesta.data.media.title.romaji}"
                 ></h5>
-                <button id="fav" class="btn btn-outline-warning d-flex" data-toggle="tooltip" data-placement="top" title="Agregar a favoritos" style="justify-content: center; align-items: center; height: 1.7rem"><img src="star-fill.svg"></button>
+                <div class="d-flex align-items-center gap-2">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="green" class="bi bi-emoji-smile-fill" viewBox="0 0 16 16">
+                    <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16M7 6.5C7 7.328 6.552 8 6 8s-1-.672-1-1.5S5.448 5 6 5s1 .672 1 1.5M4.285 9.567a.5.5 0 0 1 .683.183A3.5 3.5 0 0 0 8 11.5a3.5 3.5 0 0 0 3.032-1.75.5.5 0 1 1 .866.5A4.5 4.5 0 0 1 8 12.5a4.5 4.5 0 0 1-3.898-2.25.5.5 0 0 1 .183-.683M10 8c-.552 0-1-.672-1-1.5S9.448 5 10 5s1 .672 1 1.5S10.552 8 10 8"/>
+                  </svg>
+                  <span id="score-anime" th:text="${respuesta.data.media.averageScore}" class="fw-bold text-success" style="font-size: 1.1rem;"></span>
+                </div>
               </div>
-              <ul class="list-group list-group-flush mb-2">
+              <ul class="list-group list-group-flush mb-2 bg-card-dark">
                 <li class="list-group-item">
                   <b>Capítulos:</b>
                   <span th:text="${respuesta.data.media.episodes}"></span>
@@ -120,15 +112,24 @@
                 </li>
                 <li class="list-group-item">
                   <b>Año:</b>
-                  <span th:text="${respuesta.data.media.seasonYear}"></span>
+                  <span id="año-anime" th:text="${respuesta.data.media.seasonYear}"></span>
                 </li>
-                <li class="list-group-item">
-                  <b>Géneros:</b>
-                  <span
-                    th:each="g : ${respuesta.data.media.genres}"
-                    th:text="${g}"
-                    class="badge bg-secondary me-1"
-                  ></span>
+                <li class="list-group-item d-flex justify-content-between align-items-center">
+                  <div id="generos-anime">
+                    <b>Géneros:</b>
+                    <span
+                      th:each="g : ${respuesta.data.media.genres}"
+                      th:text="${g}"
+                      class="badge bg-secondary me-1"
+                    ></span>
+                  </div>
+                  <div>
+                    <button id="fav" class="btn btn-outline-warning d-flex" data-toggle="tooltip" data-placement="top" title="Agregar a favoritos" style="justify-content: center; align-items: center; height: 1.7rem">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-star-fill" viewBox="0 0 16 16">
+                        <path d="M3.612 15.443c-.386.198-.824-.149-.746-.592l.83-4.73L.173 6.765c-.329-.314-.158-.888.283-.95l4.898-.696L7.538.792c.197-.39.73-.39.927 0l2.184 4.327 4.898.696c.441.062.612.636.282.95l-3.522 3.356.83 4.73c.078.443-.36.79-.746.592L8 13.187l-4.389 2.256z"/>
+                      </svg>
+                    </button>
+                  </div>
                 </li>
               </ul>
             </div>
@@ -136,10 +137,20 @@
         </div>
       </section>
       <section>
-        
+        <div class="d-flex justify-content-between mb-4">
+          <h5>⭐ Mis favoritos</h5>
+          <button type="submit" id="generar-reco" class="btn btn-secondary px-3">✨ Generar recomendaciones</button>
+        </div>
+        <div>
+          <ul id="lista_fav" class="list-group gap-3">
+            <!-- Sección de favoritos -->
+          </ul>
+        </div>
       </section>
     </div>
-    <footer></footer>
+    <footer>
+      
+    </footer>
     <script src="servicios.js"></script>
   </body>
 </html>

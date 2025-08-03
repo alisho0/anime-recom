@@ -18,8 +18,8 @@ body {
 }
 .text-card {
   font-size: .9rem;
-  max-width: 85%;
   text-align: center;
+  padding: 0 1rem;
 }
 
 #sugerencias {
@@ -44,7 +44,7 @@ body {
 }
 .sugerencia-hover:hover, .sugerencia-hover.active {
   background: #e0e7ff;
-  color: #1d1d1d;
+  color: rgb(255, 255, 0);
   cursor: pointer;
 }
 
@@ -62,4 +62,13 @@ body {
   gap: 1.5rem;
   justify-content: center;
   align-items: center;
+}
+.bg-card-dark {
+  background: RGBA(var(--bs-dark-rgb),var(--bs-bg-opacity,1))!important;
+  color: #fff;
+}
+.list-group-item {
+  background: transparent !important;
+  color: #fff;
+  border-color: #23283a;
 }

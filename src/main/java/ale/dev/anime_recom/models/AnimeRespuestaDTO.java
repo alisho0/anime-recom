@@ -42,6 +42,7 @@ public class AnimeRespuestaDTO {
         private Title title;
         private String season;
         private Long seasonYear;
+        private Long averageScore;
         private List<String> genres; 
         private Long episodes;
         private CoverImg coverImage;

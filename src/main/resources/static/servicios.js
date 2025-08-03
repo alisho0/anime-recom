@@ -53,13 +53,18 @@ document.getElementById("fav").addEventListener("click", () => {
   const divOpciones = document.createElement("div");
   const btn1 = document.createElement("button");
   const btn2 = document.createElement("button");
-  btn1.textContent = "👁";
-  btn2.textContent = "✖";
-  btn1.classList.add("btn", "btn-primary");
-  btn2.classList.add("btn", "btn-primary");
+  btn2.id = "btn2";
+  const img1 = document.createElement("img");
+  const img2 = document.createElement("img");
+  img1.src = "cerrar.svg";
+  img2.src = "cerrar.svg";
+  btn1.appendChild(img1);
+  btn2.appendChild(img2);
+  btn1.classList.add("btn", "btn-outline-secondary", "btn1");
+  btn2.classList.add("btn", "btn-outline-secondary", "btn2");
   divOpciones.appendChild(btn1);
   divOpciones.appendChild(btn2);
-  divOpciones.classList.add("d-flex", "justify-content-center")
+  divOpciones.classList.add("d-flex", "justify-content-center", "btn-group", "align-items-center")
   celdaOpciones.appendChild(divOpciones);
 
   celdaTitulo.textContent = favorito;
@@ -95,13 +100,17 @@ window.addEventListener("DOMContentLoaded", () => {
     const divOpciones = document.createElement("div");
     const btn1 = document.createElement("button");
     const btn2 = document.createElement("button");
-    btn1.textContent = "👁";
-    btn2.textContent = "✖";
-    btn1.classList.add("btn", "btn-primary");
-    btn2.classList.add("btn", "btn-primary");
+    const img1 = document.createElement("img");
+    const img2 = document.createElement("img");
+    img1.src = "cerrar.svg";
+    img2.src = "cerrar.svg";
+    btn1.appendChild(img1);
+    btn2.appendChild(img2);
+    btn1.classList.add("btn", "btn-outline-secondary", "btn1");
+    btn2.classList.add("btn", "btn-outline-secondary", "btn2");
     divOpciones.appendChild(btn1);
     divOpciones.appendChild(btn2);
-    divOpciones.classList.add("d-flex", "justify-content-center")
+    divOpciones.classList.add("d-flex", "justify-content-center", "btn-group", "align-items-center")
     celdaOpciones.appendChild(divOpciones);
     fila.className = "tabla-fila";
     const celdaImg = document.createElement("td");
@@ -174,3 +183,20 @@ document.getElementById("generar-reco").addEventListener("click", () => {
       });
     });
 })
+
+document.getElementById("table-body").addEventListener("click", function(e) {
+  // Si el click fue en un botón con clase btn2 o en su imagen hija
+  const btn = e.target.closest(".btn2");
+  if (btn) {
+    const fila = btn.closest("tr");
+    if (fila) {
+      // Elimina de la tabla
+      fila.remove();
+      // Elimina también de localStorage
+      let favoritos = JSON.parse(localStorage.getItem("favoritos")) || [];
+      const titulo = fila.querySelector("td:nth-child(2)").innerText;
+      favoritos = favoritos.filter(fav => fav.titulo !== titulo);
+      localStorage.setItem("favoritos", JSON.stringify(favoritos));
+    }
+  }
+});

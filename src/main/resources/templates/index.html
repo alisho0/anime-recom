@@ -14,18 +14,15 @@
     />
     <link rel="stylesheet" href="style.css">
   </head>
-  <body>
-    <header>
-      <nav class="navbar bg-body-tertiary">
+  <body class=" text-white">
+    <header class="mb-5">
+      <nav class="navbar bg-dark border-bottom bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
-          <a class="navbar-brand">AniReco</a>
+          <a class="navbar-brand fw-bold fs-4 mx-4">🌸AniReco</a>
           <div class="d-flex mx-2">
             <ul class="navbar-nav flex-row gap-4">
-              <li class="nav-item">
-                <a href="#" class="nav-link">Inicio</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Recomendaciones</a>
+              <li class="nav-item text-white d-flex justify-content-between align-items-center justify-content-center gap-2">
+                <p class="m-0">Favoritos:</p> <span class=" bg-danger rounded-circle px-2" >0</span>
               </li>
             </ul>
           </div>
@@ -33,16 +30,32 @@
       </nav>
     </header>
     <div class="container">
-      <h2 class="text-center my-5">¡Bienvenido a <b>🌸AniReco🌸</b>!</h2>
-
-      <section class="mb-5">
-        <hr>
-        <h4 class="text-center">¿Qué tengo que hacer?</h4>
-        <p class="w-100 w-md-50 mx-auto text-center">
-          Busca, selecciona tus animes favoritos, luego da clic en
-          recomendaciones y descubre nuevas series que podrían interesarte
-        </p>
-        <hr>
+      <section class="mb-5 section-welcome bg-dark border border-secondary rounded">
+        <div class=" d-flex flex-column align-items-center p-4 mb-3 text-center mx-2">
+          <p class=" fs-1 mx-1">🌸✨</p>
+          <h3 class="fw-bold">¡Bienvenido a AniReco!</h3>
+          <p class="w-100 w-md-50 mx-auto text-center mb-4 text-secondary">
+            Busca, selecciona tus animes favoritos, luego da clic en
+            recomendaciones y descubre nuevas series que podrían interesarte
+          </p>
+          <div class="d-flex justify-content-center gap-3">
+            <div class="card-body border rounded card-bg-gradient p-2">
+              <p class=" fs-3 m-0">🔍</p>
+              <h5 class="card-title mb-1">Busca Animes</h5>
+              <p class="card-text text-card">Explora una base de datos con información de tus animes favoritos</p>
+            </div>
+            <div class="card-body border rounded card-bg-gradient p-2">
+              <p class=" fs-3 m-0">⭐</p>
+              <h5 class="card-title mb-1">Crea tu Lista</h5>
+              <p class=" card-text text-card">Guarda tus animes favoritos para tener tu colección personal</p>
+            </div>
+            <div class="card-body border rounded card-bg-gradient p-2">
+              <p class=" fs-3 m-0">🎌</p>
+              <h5 class="card-title mb-1">Recibe Recomendaciones</h5>
+              <p class="card-text text-card">Recibe sugerencias basadas en tus gustos</p>
+            </div>
+          </div>
+        </div>
       </section>
 
       <section class="row g-4">
@@ -94,7 +107,7 @@
                 class="card-title"
                 th:text="${respuesta.data.media.title.romaji}"
                 ></h5>
-                <button id="fav" class="btn btn-outline-warning d-flex" style="justify-content: center; align-items: center; height: 1.7rem"><img src="star-fill.svg"></button>
+                <button id="fav" class="btn btn-outline-warning d-flex" data-toggle="tooltip" data-placement="top" title="Agregar a favoritos" style="justify-content: center; align-items: center; height: 1.7rem"><img src="star-fill.svg"></button>
               </div>
               <ul class="list-group list-group-flush mb-2">
                 <li class="list-group-item">

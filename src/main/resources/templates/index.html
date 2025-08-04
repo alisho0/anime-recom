@@ -15,14 +15,14 @@
     <link rel="stylesheet" href="style.css">
   </head>
   <body class=" text-white">
-    <header class="mb-5">
+    <header id="bienvenida" class="mb-5">
       <nav class="navbar bg-dark border-bottom bg-body-tertiary" data-bs-theme="dark">
         <div class="container-fluid">
           <a class="navbar-brand fw-bold fs-4 mx-4">🌸AniReco</a>
           <div class="d-flex mx-2">
             <ul class="navbar-nav flex-row gap-4">
               <li class="nav-item text-white d-flex justify-content-between align-items-center justify-content-center gap-2">
-                <p class="m-0">Favoritos:</p> <span class=" bg-danger rounded-circle px-2" >0</span>
+                <p class="m-0">Favoritos:</p> <span id="cant_fav" class=" bg-danger rounded-circle px-2" >0</span>
               </li>
             </ul>
           </div>
@@ -63,7 +63,7 @@
           <form id="formBuscarAnime" th:action="@{/buscar}" method="GET">
             <div class="mb-1 position-relative">
               <label class="form-label" for="buscar">Buscar anime</label>
-              <div class="d-flex flex-column flex-md-row btn-group ">
+              <div class="d-flex flex-column flex-md-row input-group">
                 <input
                   type="text"
                   id="busquedaAnime"
@@ -72,7 +72,11 @@
                   placeholder="Escribe tu anime"
                   autocomplete="off"
                 />
-                <input type="submit" value="🔍" class="btn btn-primary mt-2 mt-md-0" />
+                <button class="btn btn-primary mt-2 mt-md-0">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                    <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0"/>
+                  </svg>
+                </button>
               </div>
               <ul id="sugerencias" class="list-group position-absolute bg-dark text-white border-secondary" style="z-index: 10;"></ul>
             </div>
@@ -148,9 +152,16 @@
         </div>
       </section>
     </div>
-    <footer>
-      
+    <footer class="text-light mt-5 mb-5 pt-5 pb-2">
+      <div class="d-flex align-items-center justify-content-center gap-4 ">
+        <p class="text-center mb-0">© 2025 AniReco. Todos los derechos reservados.</p>
+        <p class="text-center mb-0">Creado por 
+          <a href="#" class="link-underline-light" target="_blank" >Rea Alejandro</a>
+        </p>
+        <a class="link-underline-light" href="#bienvenida">Volver al Inicio</a>
+      </div>
     </footer>
     <script src="servicios.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
   </body>
 </html>
